@@ -1,8 +1,6 @@
-title: Just the Docs Template
+title: Ciẽncia da Computação - A Base
 description: A starter template for a Jeykll site using the Just the Docs theme!
 theme: just-the-docs
 
-url: https://just-the-docs.github.io
+url: https://bstk.github.io/ciencias-da-computacao-a-base
 
-aux_links:
-  Template Repository: https://github.com/just-the-docs/just-the-docs-template
