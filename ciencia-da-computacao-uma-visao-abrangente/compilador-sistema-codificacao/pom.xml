@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <parent>
+    <artifactId>ciencia-da-computacao-uma-visao-abrangente</artifactId>
+    <groupId>dev.bstk.cc</groupId>
+    <version>1.0.0</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>compilador-sistema-codificacao</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.0</version>
+
+  <build>
+    <finalName>${artifactId}</finalName>
+
+    <plugins>
+
+      <plugin>
+        <!-- Build an executable JAR -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
+        <!--
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>dev.bstk.okkeda.vetores.vetoressimples.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        -->
+      </plugin>
+
+    </plugins>
+  </build>
+</project>
