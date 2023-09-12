@@ -27,4 +27,25 @@ public class ConversorBinario {
     return builder.toString();
   }
 
+  public static String converteTextoParaBinarioCaractereDestacado(final String texto) {
+    if (Objects.isNull(texto)) {
+      return "";
+    }
+
+    final StringBuilder builder = new StringBuilder();
+
+    for (char letra : texto.toCharArray()) {
+      final String letraEmBinario = String
+        .format("%8s", Integer.toBinaryString(letra))
+        .replace(" ", "0");
+
+      builder
+        .append(letraEmBinario)
+        .append(String.format("[ %s ]", letra))
+        .append(" ");
+    }
+
+    return builder.toString();
+  }
+
 }

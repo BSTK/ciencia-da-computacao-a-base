@@ -4,7 +4,29 @@ package dev.bstk.sistemacodificacao.ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Conversor extends javax.swing.JFrame {
+import static dev.bstk.sistemacodificacao.conversor.SistemaNumeracao.BINARIO;
+import static dev.bstk.sistemacodificacao.conversor.SistemaNumeracao.DECIMAL;
+import static dev.bstk.sistemacodificacao.conversor.SistemaNumeracao.HEXA;
+import static dev.bstk.sistemacodificacao.conversor.SistemaNumeracao.OCTAL;
+import static dev.bstk.sistemacodificacao.conversor.SistemaNumeracao.TEXTO;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
+import static javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS;
+
+public class Conversor extends JFrame {
+
+  private static final String[] COMOBOX_DE_ITENS = new String[] {
+    "Selecione um item ...",
+    TEXTO.getDescricao()
+  };
+
+  private static final String[] COMOBOX_PARA_ITENS = new String[] {
+    "Selecione um item ...",
+    TEXTO.getDescricao(),
+    BINARIO.getDescricao(),
+    DECIMAL.getDescricao(),
+    HEXA.getDescricao(),
+    OCTAL.getDescricao(),
+  };
 
   private final JButton botaoConverter = new JButton();
 
@@ -27,24 +49,30 @@ public class Conversor extends javax.swing.JFrame {
   private final JTextArea textareaSaida = new JTextArea();
   private final JTextArea textareaEntrada = new JTextArea();
 
-  private final JScrollPane jScrollPane1 = new JScrollPane();
-  private final JScrollPane jScrollPane2 = new JScrollPane();
+  private final JScrollPane jScrollPane1 = new JScrollPane(null, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
+  private final JScrollPane jScrollPane2 = new JScrollPane(null, VERTICAL_SCROLLBAR_ALWAYS, HORIZONTAL_SCROLLBAR_NEVER);
+
+  private final Font fontePadrao = new Font("Segoe UI", 0, 18);
 
   public Conversor() {
-    this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+    this.setExtendedState(Frame.MAXIMIZED_BOTH);
+    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     this.configuracaoComponentes();
     this.configuracaoLayoutComponentes();
 
     this.setVisible(Boolean.TRUE);
     this.pack();
+
+    new ConversorController(this);
   }
 
   private void configuracaoComponentes() {
     textareaEntrada.setRows(5);
     textareaEntrada.setColumns(20);
+    textareaEntrada.setLineWrap(true);
+    textareaEntrada.setFont(fontePadrao);
     textareaEntrada.setMargin(new Insets(5, 5, 5, 5));
-    textareaEntrada.setFont(new Font("Segoe UI", 0, 18));
     jScrollPane2.setViewportView(textareaEntrada);
 
     final var panelEntradaLayout = new GroupLayout(panelEntrada);
@@ -72,9 +100,10 @@ public class Conversor extends javax.swing.JFrame {
     panelSaida.setPreferredSize(new Dimension(10, 245));
     textareaSaida.setRows(5);
     textareaSaida.setColumns(20);
-    textareaSaida.setEnabled(false);
+    textareaSaida.setLineWrap(true);
+    textareaSaida.setEditable(false);
+    textareaSaida.setFont(fontePadrao);
     textareaSaida.setMargin(new Insets(5, 5, 5, 5));
-    textareaSaida.setFont(new Font("Segoe UI", 0, 18));
     jScrollPane1.setViewportView(textareaSaida);
 
     final var panelSaidaLayout = new GroupLayout(panelSaida);
@@ -99,22 +128,22 @@ public class Conversor extends javax.swing.JFrame {
             .addGap(12, 12, 12))
     );
 
-    comboboxPara.setFont(new Font("Segoe UI", 0, 18));
-    comboboxPara.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+    comboboxDe.setFont(fontePadrao);
+    comboboxDe.setModel(new DefaultComboBoxModel<>(COMOBOX_DE_ITENS));
 
-    comboboxDe.setFont(new Font("Segoe UI", 0, 18));
-    comboboxDe.setModel(new DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+    comboboxPara.setFont(fontePadrao);
+    comboboxPara.setModel(new DefaultComboBoxModel<>(COMOBOX_PARA_ITENS));
 
     botaoConverter.setText("Converter");
+    botaoConverter.setFont(fontePadrao);
     botaoConverter.setBackground(new Color(102, 204, 0));
     botaoConverter.setForeground(new Color(255, 255, 255));
-    botaoConverter.setFont(new Font("Segoe UI", 0, 18));
 
     labelPara.setText("Para");
-    labelPara.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    labelPara.setFont(fontePadrao);
 
     labelDe.setText("De");
-    labelDe.setFont(new java.awt.Font("Segoe UI", 0, 18));
+    labelDe.setFont(fontePadrao);
 
     jMenu1.setText("File");
     jMenuItem1.setText("jMenuItem1");
@@ -192,5 +221,25 @@ public class Conversor extends javax.swing.JFrame {
           .addComponent(panelSaida, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
           .addGap(15, 15, 15))
     );
+  }
+
+  public JButton getBotaoConverter() {
+    return botaoConverter;
+  }
+
+  public JComboBox<String> getComboboxDe() {
+    return comboboxDe;
+  }
+
+  public JComboBox<String> getComboboxPara() {
+    return comboboxPara;
+  }
+
+  public JTextArea getTextareaSaida() {
+    return textareaSaida;
+  }
+
+  public JTextArea getTextareaEntrada() {
+    return textareaEntrada;
   }
 }
